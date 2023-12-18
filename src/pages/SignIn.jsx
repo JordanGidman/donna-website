@@ -1,11 +1,12 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignIn() {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +20,7 @@ function SignIn() {
     //sign the user up through firebase authentication
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // navigate("/");
+      navigate("/");
       setIsLoading(false);
     } catch (err) {
       setError(true);
@@ -29,7 +30,7 @@ function SignIn() {
   return (
     <div className="form-container">
       <div className="form-wrapper">
-        <h1 className="logo">Giddy Chat</h1>
+        <h1 className="logo">Donna Marie Artwork</h1>
         <span className="subheading">Sign In</span>
         <form className="signup-form" onSubmit={handleSubmit}>
           <input
@@ -47,9 +48,9 @@ function SignIn() {
           </button>
           {error && <span>Something went wrong..</span>}
         </form>
-        {/* <p className="signup-footer">
+        <p className="signup-footer">
           Don't have an account? <Link to={"/signup"}>Sign up</Link>
-        </p> */}
+        </p>
       </div>
     </div>
   );

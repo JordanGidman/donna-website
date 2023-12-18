@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "../firebase";
 
 import { doc, setDoc } from "firebase/firestore";
@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 function SignUp() {
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -19,10 +19,15 @@ function SignUp() {
     const email = e.target[1].value;
     const password = e.target[2].value;
 
-    //sign the user up through firebase authentication
     try {
+      //sign the user up through firebase authentication
       const res = await createUserWithEmailAndPassword(auth, email, password);
-      //Speak to the cloud storage and upload the file
+      //Store the user in a database as well without password so we can access later
+
+      await updateProfile(res.user, {
+        displayName,
+        admin: false,
+      });
 
       await setDoc(doc(db, "users", res.user.uid), {
         uid: res.user.uid,
@@ -31,7 +36,7 @@ function SignUp() {
         admin: false,
       });
 
-      //   navigate("/");
+      navigate("/");
     } catch (err) {
       setError(true);
       console.log(err);
@@ -41,7 +46,7 @@ function SignUp() {
   return (
     <div className="form-container">
       <div className="form-wrapper">
-        <h1 className="logo">Giddy Chat</h1>
+        <h1 className="logo">Donna Marie Artwork</h1>
         <span className="subheading">Sign up</span>
         <form className="signup-form" onSubmit={handleSubmit}>
           <input
