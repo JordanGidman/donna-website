@@ -9,13 +9,28 @@ html {
   font-size: 62.5%;
 }
 
+body {
+  background-color: rgb(29 29 29);
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* NAVBAR AND HOME */
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 3.6rem 15rem;
+  padding: 3rem 15rem;
   background-color: rgb(29 29 29);
   color: rgb(182, 149, 118);
+  border-bottom: 1px solid rgba(182, 149, 118, 0.1);
+  position: sticky;
+  top: 0%;
+  width: 100vw;
+  z-index: 1;
 }
 
 .nav-wrapper {
@@ -81,3 +96,146 @@ html {
 /* .home {
   height: 100vh;
 } */
+
+/* PARRALAX HERO ATTEMPT 1 */
+/* .hero {
+  color: #fff;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  perspective: 1rem;
+  text-align: center;
+}
+
+.hero::-webkit-scrollbar {
+  display: none;
+}
+
+.hero-wrapper-inner {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  transform-style: preserve-3d;
+  z-index: -1;
+  text-align: center;
+}
+
+.parallax-bg {
+  transition: all 0.3s ease;
+}
+
+.parallax-bg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+
+  filter: brightness(80%);
+
+  transform: translateZ(-1rem) scale(2);
+}
+
+.parallax-fg {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+  filter: brightness(80%);
+
+}
+
+.parallax-header {
+  font-size: 4rem;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.parallax-text {
+  font-size: 1.4rem;
+  
+}
+
+.parallax-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  
+  height: 100%;
+}
+
+.parallax-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40vw;
+  
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+} */
+
+.hero::-webkit-scrollbar {
+  display: none;
+}
+
+.hero {
+  overflow-x: hidden;
+}
+
+.parallax {
+  height: 100vh;
+  width: 100vw;
+}
+
+.parallax-content {
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+}
+
+.parallax-text-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  padding: 0.5rem 1.5rem;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  filter: brightness(100%);
+}
+
+.parallax-img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.parallax-title {
+  font-size: 4rem;
+  font-weight: 300;
+  text-transform: uppercase;
+}
+
+.parallax-text {
+  font-size: 1.4rem;
+  letter-spacing: 0.06rem;
+  width: 62rem;
+  font-weight: 300;
+}
+
+.parallax-cta-btn {
+  padding: 1rem 3rem;
+  text-transform: uppercase;
+  background-color: #b69576;
+  border: none;
+  font-size: 1.5rem;
+  margin-top: 2.2rem;
+  font-weight: 400;
+  letter-spacing: 0.1rem;
+  color: #fff;
+  line-height: 1.2;
+  cursor: pointer;
+  box-shadow: 0 0 1rem 0.2rem rgba(0, 0, 0, 0.2);
+}
