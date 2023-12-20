@@ -106,7 +106,7 @@ function Hero() {
         </div>
       </Parallax>
       <Parallax
-        strength={400}
+        strength={300}
         bgImage={imageURL2}
         bgClassName="parallax-img"
         className="parallax"
@@ -130,7 +130,7 @@ function Hero() {
         </div>
       </Parallax>
       <Parallax
-        strength={400}
+        strength={300}
         bgImage={imageURL3}
         bgClassName="parallax-img"
         className="parallax"
@@ -155,7 +155,7 @@ function Hero() {
         </div>
       </Parallax>
       <Parallax
-        strength={400}
+        strength={300}
         bgImage={imageURL4}
         bgClassName="parallax-img"
         className="parallax"
@@ -180,7 +180,7 @@ function Hero() {
         </div>
       </Parallax>
       <Parallax
-        strength={400}
+        strength={300}
         bgImage={imageURL5}
         bgClassName="parallax-img"
         className="parallax"

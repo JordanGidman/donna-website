@@ -7,11 +7,13 @@ import { auth } from "../firebase";
 function Navbar() {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
-  console.log(currentUser);
+
   return (
     <nav className="navbar">
       <div className="nav-wrapper">
-        <div className="logo">Logo</div>
+        <div className="logo" onClick={() => navigate("/")}>
+          Logo
+        </div>
         <ul className="nav-list">
           <li className="nav-link">New Prints</li>
           <li className="nav-link">Gallery</li>

@@ -4,6 +4,7 @@ import { auth, db } from "../firebase";
 
 import { doc, setDoc } from "firebase/firestore";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function SignUp() {
   const [error, setError] = useState(false);
@@ -45,6 +46,7 @@ function SignUp() {
 
   return (
     <div className="form-container">
+      <Navbar />
       <div className="form-wrapper">
         <h1 className="logo">Donna Marie Artwork</h1>
         <span className="subheading">Sign up</span>
