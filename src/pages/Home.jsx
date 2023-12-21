@@ -9,15 +9,9 @@ function Home() {
 
   return (
     <div className="home">
-      {showAdmin ? (
-        <Admin setShowAdmin={setShowAdmin} />
-      ) : (
-        <>
-          <Navbar setShowAdmin={setShowAdmin} />
-          <Hero />
-          <Footer />
-        </>
-      )}
+      <Navbar />
+      <Hero />
+      <Footer />
     </div>
   );
 }

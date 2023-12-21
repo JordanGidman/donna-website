@@ -20,7 +20,7 @@ function Admin() {
     const heroText = e.target[4].value;
 
     try {
-      //upload images to cloud storage
+      //upload images to cloud storage if all the data needed is given
       const heroRef = ref(storage, "heroImages/" + heroName);
       const galleryRef = ref(storage, "galleryImages/" + galleryName);
       const uploadTask =
@@ -44,6 +44,7 @@ function Admin() {
             console.log(error);
           },
           () => {
+            //after successful image upload get the download URL
             getDownloadURL(uploadTask.snapshot.ref).then(
               async (downloadURL) => {
                 //save image data e.g name and message to a seperate database for access in the hero

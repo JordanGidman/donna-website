@@ -6,20 +6,15 @@ import { nanoid } from "nanoid";
 import { collection, getDocs } from "firebase/firestore";
 
 function Hero() {
-  // const imageURL = `https://www.nois7.com/cdn/shop/files/PolarBearAurora_wide.jpg?crop=center&v=1697548203&width=1600`;
-  // const imageURL2 = `https://www.nois7.com/cdn/shop/files/HeavenReflection.jpg?crop=center&v=1697548203&width=1600`;
-  // const imageURL3 = `https://www.nois7.com/cdn/shop/files/VeniceLanterns.jpg?crop=center&v=1697548203&width=1600`;
-  // const imageURL4 = `https://www.nois7.com/cdn/shop/files/Nois7_EnchantedVenice_AdobeRGB.jpg?crop=center&v=1697548203&width=1600`;
-  // const imageURL5 = `https://www.nois7.com/cdn/shop/files/centralparkpenugins2.jpg?crop=center&v=1697548203&width=1600`;
-  // const imageURL4 = `https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7a44568c-c496-43c2-8781-2c0a3b56cce7/d9mcpdj-ddce6188-0332-4bfe-bfd7-5dae55b86986.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdhNDQ1NjhjLWM0OTYtNDNjMi04NzgxLTJjMGEzYjU2Y2NlN1wvZDltY3Bkai1kZGNlNjE4OC0wMzMyLTRiZmUtYmZkNy01ZGFlNTViODY5ODYuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.oekMSOhkKHwfiavYQkrdv-lbjjyb38UAZ6CFlB1lyfM`;
-
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     async function getImages() {
+      //get a snapshot of the entire heroImageData collection
       const querySnapshot = await getDocs(collection(db, "heroImageData"));
 
       querySnapshot.forEach((doc) => {
+        //set images to be an array of these objects
         setImages((prevImages) => [...prevImages, doc.data()]);
       });
     }
@@ -30,7 +25,6 @@ function Hero() {
   return (
     <div className="hero">
       {images.reverse().map((img) => {
-        console.log(images);
         return (
           <HeroParallaxImg
             url={img.photoURL}

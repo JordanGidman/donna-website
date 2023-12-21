@@ -6,28 +6,15 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import { storage } from "../firebase";
 import { useEffect, useState } from "react";
 
-//temp until i pull the images from cloud storage
-// const images = [
-//   `https://www.nois7.com/cdn/shop/files/PolarBearAurora_wide.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/HeavenReflection.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/VeniceLanterns.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/Nois7_EnchantedVenice_AdobeRGB.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/centralparkpenugins2.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/PolarBearAurora_wide.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/HeavenReflection.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/VeniceLanterns.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/Nois7_EnchantedVenice_AdobeRGB.jpg?crop=center&v=1697548203&width=1600`,
-//   `https://www.nois7.com/cdn/shop/files/centralparkpenugins2.jpg?crop=center&v=1697548203&width=1600`,
-// ];
-
 function Gallery() {
   const [imageUrls, setImageUrls] = useState([]);
 
   useEffect(() => {
     const storageRef = ref(storage, "galleryImages/");
 
-    // List all items in the folder
+    //list all items in the folder
     listAll(storageRef).then((result) => {
+      //then get all the download URL's
       const promises = result.items.map((item) => getDownloadURL(item));
       Promise.all(promises).then((urls) => {
         setImageUrls(urls);
