@@ -2,9 +2,18 @@ import { Parallax } from "react-parallax";
 import Navbar from "../components/Navbar";
 import emailjs from "emailjs-com";
 import Footer from "../components/Footer";
+import { storage } from "../firebase";
+import { getDownloadURL, ref } from "firebase/storage";
+import { useState } from "react";
 
 function Contact() {
-  const image = `https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7a44568c-c496-43c2-8781-2c0a3b56cce7/d9mcpdj-ddce6188-0332-4bfe-bfd7-5dae55b86986.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdhNDQ1NjhjLWM0OTYtNDNjMi04NzgxLTJjMGEzYjU2Y2NlN1wvZDltY3Bkai1kZGNlNjE4OC0wMzMyLTRiZmUtYmZkNy01ZGFlNTViODY5ODYuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.oekMSOhkKHwfiavYQkrdv-lbjjyb38UAZ6CFlB1lyfM`;
+  // const image = `https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7a44568c-c496-43c2-8781-2c0a3b56cce7/d9mcpdj-ddce6188-0332-4bfe-bfd7-5dae55b86986.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7InBhdGgiOiJcL2ZcLzdhNDQ1NjhjLWM0OTYtNDNjMi04NzgxLTJjMGEzYjU2Y2NlN1wvZDltY3Bkai1kZGNlNjE4OC0wMzMyLTRiZmUtYmZkNy01ZGFlNTViODY5ODYuanBnIn1dXSwiYXVkIjpbInVybjpzZXJ2aWNlOmZpbGUuZG93bmxvYWQiXX0.oekMSOhkKHwfiavYQkrdv-lbjjyb38UAZ6CFlB1lyfM`;
+  const [image, setImage] = useState("");
+  const imgRef = ref(storage, "donna-contact-image.jpg");
+  getDownloadURL(imgRef).then((url) => {
+    console.log(url);
+    setImage(url);
+  });
 
   function sendEmail(e) {
     e.preventDefault(); //This is important, i'm not sure why, but the email won't send without it
