@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="footer">
-      <h2 className="logo footer-logo">Donna Marie Artwork</h2>
+      <h2 className="logo footer-logo">Donna Marie Images</h2>
       <div className="socials-container">
         <ion-icon name="logo-facebook" size="large"></ion-icon>
         <ion-icon name="logo-instagram" size="large"></ion-icon>

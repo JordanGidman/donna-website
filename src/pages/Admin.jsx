@@ -1,27 +1,57 @@
-import { ref, uploadBytesResumable } from "firebase/storage";
-import { storage } from "../firebase";
+import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import { db, storage } from "../firebase";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { doc, setDoc } from "firebase/firestore";
 
-function Admin({ setShowAdmin }) {
+function Admin() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+
   function handleSubmit(e) {
+    setIsLoading(true);
     e.preventDefault();
-    console.log(e.target[3].files);
+    //select all form values
     const heroName = e.target[0].value;
     const heroFile = e.target[1].files[0];
     const galleryName = e.target[2].value;
     const galleryFile = e.target[3].files[0];
-    // const
-    // console.log(heroFile);
-
-    // if (heroFile === "") return;
+    const heroText = e.target[4].value;
 
     try {
+      //upload images to cloud storage
       const heroRef = ref(storage, "heroImages/" + heroName);
       const galleryRef = ref(storage, "galleryImages/" + galleryName);
-      uploadBytesResumable(heroRef, heroFile);
+      const uploadTask = uploadBytesResumable(heroRef, heroFile);
       uploadBytesResumable(galleryRef, galleryFile);
-      setShowAdmin(false);
+      //save image data e.g name and message to a seperate database for access in the hero
+      //I have the idea i could probably put this text in the metadata. But to me this feels more robust
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          //handle errors
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+            console.log(heroName);
+            await setDoc(doc(db, "heroImageData", heroName), {
+              imageName: heroName,
+              imageText: heroText,
+              photoURL: downloadURL,
+            });
+          });
+        }
+      );
+
+      navigate("/");
     } catch (err) {
       console.log(err);
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -39,7 +69,7 @@ function Admin({ setShowAdmin }) {
           style={{ display: "none" }}
           className="input-hero admin-input"
         ></input>
-        <label htmlFor="file" className="form-add-image-label">
+        <label htmlFor="file" className={`form-add-image-label`}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -84,12 +114,17 @@ function Admin({ setShowAdmin }) {
           </svg>
           <span>Add a Gallery image</span>
         </label>
-
-        <button className="btn-admin-submit" type="submit">
+        <textarea
+          type="textarea"
+          className="input-gallery-text admin-input"
+          placeholder="Enter the paragraph you want over the homepage image"
+        ></textarea>
+        {error && <span>Something went wrong...</span>}
+        <button className="btn-admin-submit" type="submit" disabled={isLoading}>
           Upload
         </button>
       </form>
-      <button className="btn-close-admin" onClick={() => setShowAdmin(false)}>
+      <button className="btn-close-admin" onClick={() => navigate("/")}>
         <ion-icon name="close-outline" size="large"></ion-icon>
       </button>
     </div>

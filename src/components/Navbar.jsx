@@ -15,10 +15,17 @@ function Navbar() {
           Logo
         </div>
         <ul className="nav-list">
-          <li className="nav-link">New Prints</li>
-          <li className="nav-link">Gallery</li>
-          <li className="nav-link">Contact Me</li>
-          {currentUser && <li className="nav-link">Admin</li>}
+          <li className="nav-link" onClick={() => navigate("/gallery")}>
+            Gallery
+          </li>
+          <li className="nav-link" onClick={() => navigate("/contact")}>
+            Contact Me
+          </li>
+          {currentUser && (
+            <li className="nav-link" onClick={() => navigate("/admin")}>
+              Admin
+            </li>
+          )}
         </ul>
       </div>
 
