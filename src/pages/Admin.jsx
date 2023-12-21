@@ -23,28 +23,40 @@ function Admin() {
       //upload images to cloud storage
       const heroRef = ref(storage, "heroImages/" + heroName);
       const galleryRef = ref(storage, "galleryImages/" + galleryName);
-      const uploadTask = uploadBytesResumable(heroRef, heroFile);
-      uploadBytesResumable(galleryRef, galleryFile);
-      //save image data e.g name and message to a seperate database for access in the hero
-      //I have the idea i could probably put this text in the metadata. But to me this feels more robust
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (error) => {
-          //handle errors
-          console.log(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            console.log(heroName);
-            await setDoc(doc(db, "heroImageData", heroName), {
-              imageName: heroName,
-              imageText: heroText,
-              photoURL: downloadURL,
-            });
-          });
-        }
-      );
+      const uploadTask =
+        heroName &&
+        heroFile &&
+        heroText &&
+        uploadBytesResumable(heroRef, heroFile);
+
+      galleryName &&
+        galleryFile &&
+        uploadBytesResumable(galleryRef, galleryFile);
+
+      heroName &&
+        heroFile &&
+        heroText &&
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            //handle errors
+            console.log(error);
+          },
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then(
+              async (downloadURL) => {
+                //save image data e.g name and message to a seperate database for access in the hero
+                //I have the idea i could probably put this text in the metadata. But to me this feels more robust
+                await setDoc(doc(db, "heroImageData", heroName), {
+                  imageName: heroName,
+                  imageText: heroText,
+                  photoURL: downloadURL,
+                });
+              }
+            );
+          }
+        );
 
       navigate("/");
     } catch (err) {
