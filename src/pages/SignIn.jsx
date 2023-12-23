@@ -2,6 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 function SignIn() {
   const [error, setError] = useState(false);
@@ -28,31 +29,37 @@ function SignIn() {
     }
   }
   return (
-    <div className="form-container">
-      <div className="form-wrapper">
-        <h1 className="logo">Donna Marie Artwork</h1>
-        <span className="subheading">Sign In</span>
-        <form className="signup-form" onSubmit={handleSubmit}>
-          <input
-            type="email"
-            className="signup-inputs"
-            placeholder="Email"
-          ></input>
-          <input
-            type="password"
-            className="signup-inputs"
-            placeholder="password"
-          ></input>
-          <button className="sign-up-form-btn" disabled={isLoading}>
-            Sign in
-          </button>
-          {error && <span>Something went wrong..</span>}
-        </form>
-        <p className="signup-footer">
-          Don't have an account? <Link to={"/signup"}>Sign up</Link>
-        </p>
+    <>
+      <Navbar />
+      <div className="form-container">
+        <div className="form-wrapper">
+          <h1 className="logo">Donna Marie Artwork</h1>
+          <span className="signin-subheading">Sign In</span>
+          <form className="signup-form" onSubmit={handleSubmit}>
+            <input
+              type="email"
+              className="signin-inputs"
+              placeholder="Email"
+            ></input>
+            <input
+              type="password"
+              className="signin-inputs"
+              placeholder="password"
+            ></input>
+            <button className="signin-form-btn" disabled={isLoading}>
+              Sign in
+            </button>
+            {error && <span>Something went wrong..</span>}
+          </form>
+          <p className="signin-footer">
+            Don't have an account?{" "}
+            <Link className="signin-footer-link" to={"/signup"}>
+              Sign up
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

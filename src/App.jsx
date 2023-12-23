@@ -5,7 +5,10 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Admin from "./pages/Admin";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import _PRIVATE from "./firebase";
 
 //need to connect both components to the cloud storage and read the image URL's
 //need a way to check if the currentUser is the site owner
@@ -13,6 +16,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 //check admin component and hero comments and fix
 
 function App() {
+  const { currentUser } = useContext(AuthContext);
+
+  const ProtectedRoute = ({ children }) => {
+    if (currentUser?.uid !== _PRIVATE) {
+      return <Navigate to="/signin" />;
+    }
+
+    return children;
+  };
   return (
     <BrowserRouter>
       <Routes>
@@ -22,7 +34,14 @@ function App() {
           <Route path="signup" element={<SignUp />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="admin" element={<Admin />} />
+          <Route
+            path="admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
         </Route>
       </Routes>
     </BrowserRouter>

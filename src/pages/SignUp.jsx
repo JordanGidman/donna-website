@@ -45,38 +45,43 @@ function SignUp() {
   }
 
   return (
-    <div className="form-container">
+    <>
       <Navbar />
-      <div className="form-wrapper">
-        <h1 className="logo">Donna Marie Artwork</h1>
-        <span className="subheading">Sign up</span>
-        <form className="signup-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            className="signup-inputs"
-            placeholder="Dispaly Name"
-          ></input>
-          <input
-            type="email"
-            className="signup-inputs"
-            placeholder="Email"
-          ></input>
-          <input
-            type="password"
-            className="signup-inputs"
-            placeholder="password"
-          ></input>
+      <div className="form-container">
+        <div className="form-wrapper">
+          <h1 className="logo">Donna Marie Artwork</h1>
+          <span className="signup-subheading">Sign up</span>
+          <form className="signup-form" onSubmit={handleSubmit}>
+            <input
+              type="text"
+              className="signup-inputs"
+              placeholder="Dispaly Name"
+            ></input>
+            <input
+              type="email"
+              className="signup-inputs"
+              placeholder="Email"
+            ></input>
+            <input
+              type="password"
+              className="signup-inputs"
+              placeholder="password"
+            ></input>
 
-          <button className="sign-up-form-btn" disabled={isLoading}>
-            Sign Up
-          </button>
-          {error && <span>Something went wrong..</span>}
-        </form>
-        {/* <p className="signup-footer">
-          Already have an account? <Link to="/login">Login</Link>
-        </p> */}
+            <button className="signup-form-btn" disabled={isLoading}>
+              Sign Up
+            </button>
+            {error && <span>Something went wrong..</span>}
+          </form>
+          <p className="signup-footer">
+            Already have an account?{" "}
+            <Link to="/login" className="signup-footer-link">
+              Login
+            </Link>
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

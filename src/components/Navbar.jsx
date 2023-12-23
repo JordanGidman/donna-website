@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import _PRIVATE, { auth } from "../firebase";
 
 function Navbar() {
   const { currentUser } = useContext(AuthContext);
@@ -21,7 +21,7 @@ function Navbar() {
           <li className="nav-link" onClick={() => navigate("/contact")}>
             Contact Me
           </li>
-          {currentUser && (
+          {currentUser?.uid === _PRIVATE && (
             <li className="nav-link" onClick={() => navigate("/admin")}>
               Admin
             </li>

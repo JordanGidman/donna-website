@@ -17,6 +17,60 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+/* SIGN IN && SIGN UP PAGE */
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* height: 90vh; */
+  margin-top: 5rem;
+  width: 100vw;
+}
+
+.form-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 1px solid #b69576;
+  padding: 15rem;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.signup-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+}
+
+.signin-subheading,
+.signup-subheading {
+  color: #b69576;
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.signin-inputs {
+  width: 100%;
+}
+
+.signin-footer,
+.signup-footer {
+  color: #b69576;
+  font-size: 1.4rem;
+  margin-top: 2rem;
+}
+
+.signin-footer-link,
+.signup-footer-link {
+  color: #fff;
+}
+
 /* NAVBAR AND HOME */
 
 .navbar {
@@ -229,7 +283,9 @@ body::-webkit-scrollbar {
 }
 
 .parallax-cta-btn,
-.btn-admin-submit {
+.btn-admin-submit,
+.signin-form-btn,
+.signup-form-btn {
   padding: 1rem 3rem;
   text-transform: uppercase;
   background-color: #b69576;
@@ -380,7 +436,9 @@ body::-webkit-scrollbar {
 
 .input-hero-name,
 .input-gallery-name,
-.input-gallery-text {
+.input-gallery-text,
+.signin-inputs,
+.signup-inputs {
   padding: 1rem 2rem;
   width: 60%;
   align-self: center;
