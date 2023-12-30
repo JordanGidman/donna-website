@@ -285,7 +285,8 @@ body::-webkit-scrollbar {
 .parallax-cta-btn,
 .btn-admin-submit,
 .signin-form-btn,
-.signup-form-btn {
+.signup-form-btn,
+.delete-btn {
   padding: 1rem 3rem;
   text-transform: uppercase;
   background-color: #b69576;
@@ -327,6 +328,7 @@ body::-webkit-scrollbar {
 }
 
 .gallery-card {
+  position: relative;
 }
 
 .gallery-img {
@@ -340,6 +342,14 @@ body::-webkit-scrollbar {
 
 .gallery-img:hover {
   transform: scale(1.02);
+}
+
+.delete-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  transform: translate(-50%, -50%);
 }
 
 /* CONTACT SECTION */

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 function Gallery() {
   const [imageUrls, setImageUrls] = useState([]);
+  console.log(imageUrls);
 
   useEffect(() => {
     const storageRef = ref(storage, "galleryImages/");
@@ -15,9 +16,23 @@ function Gallery() {
     //list all items in the folder
     listAll(storageRef).then((result) => {
       //then get all the download URL's
-      const promises = result.items.map((item) => getDownloadURL(item));
+
+      const promises = result.items.map((item) => {
+        console.log(item.fullPath);
+        return getDownloadURL(item);
+      });
+
+      const paths = result.items.map((item) => {
+        return item.fullPath;
+      });
+
       Promise.all(promises).then((urls) => {
-        setImageUrls(urls);
+        const imageObjects = urls.map((url, i) => {
+          return {
+            [paths[i]]: url,
+          };
+        });
+        setImageUrls(imageObjects);
       });
     });
   }, []);
@@ -29,7 +44,15 @@ function Gallery() {
         <h1 className="gallery-title">Gallery</h1>
         <div className="gallery-images-container">
           {imageUrls.map((img) => {
-            return <GalleryImage source={img} key={nanoid()} />;
+            console.log(Object.keys(img)[0]);
+            return (
+              <GalleryImage
+                source={Object.values(img)[0]}
+                path={Object.keys(img)[0]}
+                key={nanoid()}
+                setImageUrls={setImageUrls}
+              />
+            );
           })}
         </div>
       </section>

@@ -10,10 +10,14 @@ import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import _PRIVATE from "./firebase";
 
-//need to connect both components to the cloud storage and read the image URL's
-//need a way to check if the currentUser is the site owner
+//-features-
 //need to figure out a way to replace images
-//check admin component and hero comments and fix
+//may need a way to choose the order the images are laid out in??
+
+//-optimization-
+//memoize necessary components
+//lazy load images
+//need to make it responsive
 
 function App() {
   const { currentUser } = useContext(AuthContext);
