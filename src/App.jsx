@@ -1,4 +1,5 @@
 import "./App.css";
+import "./queries.css";
 import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import Home from "./pages/Home";

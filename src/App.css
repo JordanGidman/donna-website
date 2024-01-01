@@ -286,7 +286,7 @@ body::-webkit-scrollbar {
 .btn-admin-submit,
 .signin-form-btn,
 .signup-form-btn,
-.delete-btn {
+.gallery-delete-btn {
   padding: 1rem 3rem;
   text-transform: uppercase;
   background-color: #b69576;
@@ -344,12 +344,13 @@ body::-webkit-scrollbar {
   transform: scale(1.02);
 }
 
-.delete-btn {
+.gallery-delete-btn {
   position: absolute;
   top: 50%;
   left: 50%;
 
   transform: translate(-50%, -50%);
+  margin-top: 0;
 }
 
 /* CONTACT SECTION */
@@ -448,7 +449,8 @@ body::-webkit-scrollbar {
 .input-gallery-name,
 .input-gallery-text,
 .signin-inputs,
-.signup-inputs {
+.signup-inputs,
+.input-gallery-pos {
   padding: 1rem 2rem;
   width: 60%;
   align-self: center;
@@ -462,11 +464,13 @@ body::-webkit-scrollbar {
 .input-gallery-text {
   width: 100%;
   height: 50%;
+  margin-bottom: 4rem;
 }
 
 .input-hero-name::placeholder,
 .input-gallery-name::placeholder,
-.input-gallery-text::placeholder {
+.input-gallery-text::placeholder,
+.input-gallery-pos::placeholder {
   color: rgba(182, 149, 118, 0.6);
   text-align: center;
 }

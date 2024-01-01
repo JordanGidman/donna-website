@@ -2,7 +2,15 @@ import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { db, storage } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 
 function Admin() {
   const navigate = useNavigate();
@@ -15,12 +23,14 @@ function Admin() {
     //select all form values
     const heroName = e.target[0].value;
     const heroFile = e.target[1].files[0];
-    const galleryName = e.target[2].value;
-    const galleryFile = e.target[3].files[0];
-    const heroText = e.target[4].value;
+    const heroText = e.target[2].value;
+    const galleryName = e.target[3].value;
+    const galleryFile = e.target[4].files[0];
+    const galleryPos = e.target[5].value;
 
     try {
       //upload images to cloud storage if all the data needed is given
+
       const heroRef = ref(storage, "heroImages/" + heroName);
       const galleryRef = ref(storage, "galleryImages/" + galleryName);
       const uploadTask =
@@ -29,7 +39,8 @@ function Admin() {
         heroText &&
         uploadBytesResumable(heroRef, heroFile);
 
-      galleryName &&
+      const uploadGalleryTask =
+        galleryName &&
         galleryFile &&
         uploadBytesResumable(galleryRef, galleryFile);
 
@@ -58,6 +69,52 @@ function Admin() {
             );
           }
         );
+
+      uploadGalleryTask.on(
+        "state_changed",
+        (snapshot) => {},
+        (error) => {
+          console.log(error);
+        },
+        () => {
+          //after successful gallery upload get the downloadUrl
+          getDownloadURL(uploadGalleryTask.snapshot.ref).then(
+            async (downloadURL) => {
+              //pull all imageData where the new position is equal or greater and shift by 1
+              //this makes room for the new image
+              const q = query(
+                collection(db, "galleryImageData"),
+                where("position", ">=", Number(galleryPos))
+              );
+              const querySnapshot = await getDocs(q);
+
+              let isRoom = true;
+              querySnapshot.forEach((document) => {
+                if (document.data().position === galleryPos) isRoom = false;
+              });
+
+              //update all other image positions
+              isRoom &&
+                querySnapshot.forEach((document) => {
+                  updateDoc(
+                    doc(db, "galleryImageData", document.data().imageName),
+                    {
+                      position: document.data().position + 1,
+                    }
+                  );
+                });
+
+              //save the new image data to a database
+              await setDoc(doc(db, "galleryImageData", galleryName), {
+                imageName: galleryName,
+                photoURL: downloadURL,
+                position: Number(galleryPos),
+                path: uploadGalleryTask.snapshot.metadata.fullPath,
+              });
+            }
+          );
+        }
+      );
 
       navigate("/");
     } catch (err) {
@@ -99,6 +156,11 @@ function Admin() {
           </svg>
           <span>Add a Homepage image</span>
         </label>
+        <textarea
+          type="textarea"
+          className="input-gallery-text admin-input"
+          placeholder="Enter the paragraph you want over the homepage image"
+        ></textarea>
         <input
           type="text"
           className="input-gallery-name admin-input"
@@ -127,11 +189,11 @@ function Admin() {
           </svg>
           <span>Add a Gallery image</span>
         </label>
-        <textarea
-          type="textarea"
-          className="input-gallery-text admin-input"
-          placeholder="Enter the paragraph you want over the homepage image"
-        ></textarea>
+        <input
+          type="text"
+          className="input-gallery-pos admin-input"
+          placeholder="Gallery Image Position"
+        ></input>
         {error && <span>Something went wrong...</span>}
         <button className="btn-admin-submit" type="submit" disabled={isLoading}>
           Upload
