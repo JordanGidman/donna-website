@@ -23,10 +23,13 @@ function Admin() {
     //select all form values
     const heroName = e.target[0].value;
     const heroFile = e.target[1].files[0];
-    const heroText = e.target[2].value;
-    const galleryName = e.target[3].value;
-    const galleryFile = e.target[4].files[0];
-    const galleryPos = e.target[5].value;
+    const heroPos = e.target[2].value;
+    const heroText = e.target[3].value;
+    const galleryName = e.target[4].value;
+    const galleryFile = e.target[5].files[0];
+    const galleryPos = e.target[6].value;
+
+    console.log(galleryName);
 
     try {
       //upload images to cloud storage if all the data needed is given
@@ -34,13 +37,13 @@ function Admin() {
       const heroRef = ref(storage, "heroImages/" + heroName);
       const galleryRef = ref(storage, "galleryImages/" + galleryName);
       const uploadTask =
-        heroName &&
+        heroName !== "" &&
         heroFile &&
-        heroText &&
+        heroText !== "" &&
         uploadBytesResumable(heroRef, heroFile);
 
       const uploadGalleryTask =
-        galleryName &&
+        galleryName !== "" &&
         galleryFile &&
         uploadBytesResumable(galleryRef, galleryFile);
 
@@ -60,61 +63,87 @@ function Admin() {
               async (downloadURL) => {
                 //save image data e.g name and message to a seperate database for access in the hero
                 //I have the idea i could probably put this text in the metadata. But to me this feels more robust
+
+                const q = query(
+                  collection(db, "heroImageData"),
+                  where("position", ">=", Number(heroPos))
+                );
+                const querySnapshot = await getDocs(q);
+
+                let isRoom = true;
+                querySnapshot.forEach((document) => {
+                  if (document.data().position === heroPos) isRoom = false;
+                });
+
+                //update all other image positions
+                isRoom &&
+                  querySnapshot.forEach((document) => {
+                    updateDoc(
+                      doc(db, "heroImageData", document.data().imageName),
+                      {
+                        position: document.data().position + 1,
+                      }
+                    );
+                  });
+
                 await setDoc(doc(db, "heroImageData", heroName), {
                   imageName: heroName,
                   imageText: heroText,
                   photoURL: downloadURL,
+                  position: Number(heroPos),
                 });
               }
             );
           }
         );
 
-      uploadGalleryTask.on(
-        "state_changed",
-        (snapshot) => {},
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          //after successful gallery upload get the downloadUrl
-          getDownloadURL(uploadGalleryTask.snapshot.ref).then(
-            async (downloadURL) => {
-              //pull all imageData where the new position is equal or greater and shift by 1
-              //this makes room for the new image
-              const q = query(
-                collection(db, "galleryImageData"),
-                where("position", ">=", Number(galleryPos))
-              );
-              const querySnapshot = await getDocs(q);
+      galleryFile &&
+        galleryName !== "" &&
+        uploadGalleryTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            //after successful gallery upload get the downloadUrl
+            getDownloadURL(uploadGalleryTask.snapshot.ref).then(
+              async (downloadURL) => {
+                //pull all imageData where the new position is equal or greater and shift by 1
+                //this makes room for the new image
+                const q = query(
+                  collection(db, "galleryImageData"),
+                  where("position", ">=", Number(galleryPos))
+                );
+                const querySnapshot = await getDocs(q);
 
-              let isRoom = true;
-              querySnapshot.forEach((document) => {
-                if (document.data().position === galleryPos) isRoom = false;
-              });
-
-              //update all other image positions
-              isRoom &&
+                let isRoom = true;
                 querySnapshot.forEach((document) => {
-                  updateDoc(
-                    doc(db, "galleryImageData", document.data().imageName),
-                    {
-                      position: document.data().position + 1,
-                    }
-                  );
+                  if (document.data().position === galleryPos) isRoom = false;
                 });
 
-              //save the new image data to a database
-              await setDoc(doc(db, "galleryImageData", galleryName), {
-                imageName: galleryName,
-                photoURL: downloadURL,
-                position: Number(galleryPos),
-                path: uploadGalleryTask.snapshot.metadata.fullPath,
-              });
-            }
-          );
-        }
-      );
+                //update all other image positions
+                isRoom &&
+                  querySnapshot.forEach((document) => {
+                    updateDoc(
+                      doc(db, "galleryImageData", document.data().imageName),
+                      {
+                        position: document.data().position + 1,
+                      }
+                    );
+                  });
+
+                //save the new image data to a database
+                await setDoc(doc(db, "galleryImageData", galleryName), {
+                  imageName: galleryName,
+                  photoURL: downloadURL,
+                  position: Number(galleryPos),
+                  path: uploadGalleryTask.snapshot.metadata.fullPath,
+                });
+              }
+            );
+          }
+        );
 
       navigate("/");
     } catch (err) {
@@ -156,6 +185,11 @@ function Admin() {
           </svg>
           <span>Add a Homepage image</span>
         </label>
+        <input
+          type="text"
+          className="input-hero-pos admin-input"
+          placeholder="Homepage Image Position"
+        ></input>
         <textarea
           type="textarea"
           className="input-gallery-text admin-input"

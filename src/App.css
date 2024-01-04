@@ -450,7 +450,8 @@ body::-webkit-scrollbar {
 .input-gallery-text,
 .signin-inputs,
 .signup-inputs,
-.input-gallery-pos {
+.input-gallery-pos,
+.input-hero-pos {
   padding: 1rem 2rem;
   width: 60%;
   align-self: center;
@@ -467,10 +468,15 @@ body::-webkit-scrollbar {
   margin-bottom: 4rem;
 }
 
+.input-hero-pos {
+  margin-bottom: 4rem;
+}
+
 .input-hero-name::placeholder,
 .input-gallery-name::placeholder,
 .input-gallery-text::placeholder,
-.input-gallery-pos::placeholder {
+.input-gallery-pos::placeholder,
+.input-hero-pos::placeholder {
   color: rgba(182, 149, 118, 0.6);
   text-align: center;
 }
@@ -490,7 +496,6 @@ body::-webkit-scrollbar {
   border-bottom: 1px solid rgb(182, 149, 118, 0.4);
   padding: 1rem 2rem;
   width: 60%;
-  margin-bottom: 4rem;
 }
 
 .form-add-image-label span {
