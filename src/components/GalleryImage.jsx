@@ -1,7 +1,9 @@
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import _PRIVATE, { db, storage } from "../firebase";
+import { db, storage } from "../firebase";
 import { deleteObject, ref } from "firebase/storage";
+import "react-lazy-load-image-component/src/effects/blur.css";
+
 import {
   collection,
   deleteDoc,
@@ -12,6 +14,7 @@ import {
   updateDoc,
   where,
 } from "firebase/firestore";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 function GalleryImage({ source, path, setImageUrls }) {
   const { currentUser } = useContext(AuthContext);
@@ -59,8 +62,14 @@ function GalleryImage({ source, path, setImageUrls }) {
 
   return (
     <div className="gallery-card">
-      <img src={source} className="gallery-img" alt="" />
-      {currentUser.uid === _PRIVATE && (
+      <LazyLoadImage
+        src={source}
+        className="gallery-img lazy-load"
+        alt=""
+        effect="blur"
+      />
+
+      {currentUser?.uid === "Yen0CZbngxOD5V0zxIs4tqhrvsF2" && (
         <button className="gallery-delete-btn" onClick={deleteImage}>
           Delete
         </button>

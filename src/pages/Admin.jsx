@@ -72,11 +72,12 @@ function Admin() {
 
                 let isRoom = true;
                 querySnapshot.forEach((document) => {
-                  if (document.data().position === heroPos) isRoom = false;
+                  if (document.data().position === Number(heroPos))
+                    isRoom = false;
                 });
 
                 //update all other image positions
-                isRoom &&
+                !isRoom &&
                   querySnapshot.forEach((document) => {
                     updateDoc(
                       doc(db, "heroImageData", document.data().imageName),
@@ -119,11 +120,15 @@ function Admin() {
 
                 let isRoom = true;
                 querySnapshot.forEach((document) => {
-                  if (document.data().position === galleryPos) isRoom = false;
+                  console.log(document.data().position);
+                  if (document.data().position === Number(galleryPos))
+                    isRoom = false;
                 });
 
+                console.log(isRoom);
+
                 //update all other image positions
-                isRoom &&
+                !isRoom &&
                   querySnapshot.forEach((document) => {
                     updateDoc(
                       doc(db, "galleryImageData", document.data().imageName),

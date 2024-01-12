@@ -15,7 +15,15 @@ function Hero() {
 
       querySnapshot.forEach((doc) => {
         //set images to be an array of these objects
-        setImages((prevImages) => [...prevImages, doc.data()]);
+        setImages((prevImages) => [
+          ...prevImages,
+          <HeroParallaxImg
+            url={doc.data().photoURL}
+            contentHead={doc.data().imageName}
+            text={doc.data().imageText}
+            key={nanoid()}
+          />,
+        ]);
       });
     }
 
@@ -24,16 +32,7 @@ function Hero() {
 
   return (
     <div className="hero">
-      {images.reverse().map((img) => {
-        return (
-          <HeroParallaxImg
-            url={img.photoURL}
-            contentHead={img.imageName}
-            text={img.imageText}
-            key={nanoid()}
-          />
-        );
-      })}
+      {...images.sort((a, b) => (a.position > b.position ? 1 : -1))}
     </div>
   );
 }

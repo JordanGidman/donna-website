@@ -2,7 +2,204 @@
   .navbar {
     padding: 3rem 15vw;
   }
+
+  .footer {
+    padding: 4rem 10rem;
+  }
 }
 
-@media (max-width: 62.5em) {
+/* 1070px */
+@media (max-width: 67em) {
+  .gallery-images-container {
+    grid-template-columns: repeat(2, 1fr);
+
+    width: 90vw;
+  }
+
+  .gallery-img {
+    width: 40vw;
+    height: 40vh;
+  }
+
+  .lazy-load-image-background {
+    width: 100%;
+  }
+}
+
+/* 1015px - MOBILE/TABLET */
+@media (max-width: 63.5em) {
+  /* mobile nav */
+  .navbar {
+    padding: 1.4rem 4rem;
+  }
+
+  .nav-list {
+    display: none;
+  }
+
+  .nav-wrapper {
+    flex-direction: column;
+  }
+
+  .nav-list.show-mobile-nav {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .user-wrapper {
+    display: none;
+  }
+
+  .user-wrapper.show-mobile-nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 4rem;
+  }
+
+  .mobile-nav-btn {
+    display: flex;
+  }
+
+  .mobile-nav-btn.show-mobile-nav {
+    position: absolute;
+    top: 1.5rem;
+    right: 4rem;
+  }
+
+  /* contact page */
+  .contact-heading {
+    font-size: 3rem;
+  }
+
+  .contact-info {
+  }
+
+  .contact-name,
+  .contact-email,
+  .contact-number,
+  .contact-comments {
+    font-size: 1.6rem;
+  }
+
+  .parallax-title {
+    font-size: 3.2rem;
+  }
+
+  .contact-parallax-bg {
+  }
+
+  /* signup */
+  .form-wrapper {
+    width: 100%;
+    border: none;
+    padding: 4rem;
+    display: flex;
+  }
+
+  .form-container {
+    text-align: center;
+  }
+
+  .signup-form {
+    width: 100%;
+  }
+
+  .signin-subheading,
+  .signup-subheading {
+    margin: 2rem 0rem;
+  }
+
+  .signup-inputs,
+  .signin-inputs {
+    width: 100%;
+  }
+
+  .logo {
+    text-align: center;
+  }
+
+  /* admin */
+
+  .admin {
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .footer-logo {
+    font-size: 2rem;
+  }
+}
+
+/* 814 */
+@media (max-width: 50.875em) {
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .contact-form-submit {
+    margin-top: 2rem;
+  }
+
+  .footer {
+    padding: 2.4rem 4rem;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .copyright {
+    flex-direction: column;
+  }
+}
+/* 648px */
+@media (max-width: 40.5em) {
+  .gallery-images-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .gallery-title {
+    font-size: 3.2rem;
+  }
+
+  .gallery-img {
+    width: 100%;
+  }
+
+  .parallax-text {
+    width: 80vw;
+  }
+
+  .parallax-cta-btn {
+    font-size: 1.4rem;
+
+    margin-top: 1.2rem;
+  }
+
+  .admin-form {
+    width: 90vw;
+  }
+
+  .form-add-image-label {
+    padding: 0.8rem 1.4rem;
+    width: 90vw;
+  }
+
+  .admin-input {
+    width: 90vw;
+  }
+}
+
+/* 457 px */
+@media (max-width: 28.5em) {
+  .gallery-delete-btn {
+    padding: 0.8rem 1.4rem;
+  }
+
+  .footer-logo {
+    text-align: center;
+  }
+
+  .copyright {
+    text-align: center;
+  }
 }

@@ -39,30 +39,33 @@ function Contact() {
     <div className="contact">
       <Navbar />
       <section className="contact-hero">
-        <Parallax
-          strength={400}
-          bgImage={image}
-          className="contact-parallax"
-          style={{
-            height: "70vh",
-            marginBottom: "4rem",
-          }}
-          bgClassName="contact-parallax-bg"
-          bgImageStyle={{
-            objectFit: "cover",
-            height: "70vh",
-            width: "100vw",
-          }}
-        >
-          <div className="parallax-content">
-            <div className="parallax-text-content contact-parallax-content">
-              <div className="parallax-title">Contact Me</div>
-              <p className="parallax-text contact-parallax-text">
-                Reach me via email
-              </p>
+        {!image && <p>Loading...</p>}
+        {image && (
+          <Parallax
+            strength={400}
+            bgImage={image}
+            className="contact-parallax"
+            style={{
+              height: "70vh",
+              marginBottom: "4rem",
+            }}
+            bgClassName="contact-parallax-bg"
+            bgImageStyle={{
+              objectFit: "cover",
+              height: "70vh",
+              width: "100vw",
+            }}
+          >
+            <div className="parallax-content">
+              <div className="parallax-text-content contact-parallax-content">
+                <div className="parallax-title">Contact Me</div>
+                <p className="parallax-text contact-parallax-text">
+                  Reach me via email
+                </p>
+              </div>
             </div>
-          </div>
-        </Parallax>
+          </Parallax>
+        )}
         <div className="contact-info">
           <div className="contact-parallax-info">
             <h2 className="contact-heading">GET IN TOUCH</h2>

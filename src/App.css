@@ -3,6 +3,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
+  font-display: swap;
 }
 
 html {
@@ -73,7 +74,8 @@ body::-webkit-scrollbar {
 
 /* NAVBAR AND HOME */
 
-.navbar {
+.navbar,
+.navbar-mobile {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -85,6 +87,10 @@ body::-webkit-scrollbar {
   top: 0%;
   width: 100vw;
   z-index: 1;
+}
+
+.navbar-mobile {
+  padding: 1.2rem 22vw;
 }
 
 .nav-wrapper {
@@ -117,6 +123,40 @@ body::-webkit-scrollbar {
   transform: scale(1.1);
   opacity: 100%;
   text-decoration: underline;
+}
+
+.mobile-nav-btn {
+  border: none;
+  background-color: transparent;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: none;
+}
+
+.mobile-nav-btn:hover {
+  cursor: pointer;
+}
+
+.burger-icon {
+  height: 2.4rem;
+  width: 2.4rem;
+  stroke: #b69576;
+}
+
+.show-mobile-nav {
+  /* transform: translateX(100%); */
+  display: flex;
+  flex-direction: column;
+}
+
+.fullscreen-nav {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .user-wrapper {
@@ -329,18 +369,19 @@ body::-webkit-scrollbar {
 
 .gallery-card {
   position: relative;
+  transition: all 0.3s ease;
 }
 
 .gallery-img {
   box-shadow: 0 0 2rem 0.2rem rgba(0, 0, 0, 0.4);
   width: 25vw;
   height: 30vh;
+
   object-fit: cover;
   background-position: center;
-  transition: all 0.3s ease;
 }
 
-.gallery-img:hover {
+.gallery-card:hover {
   transform: scale(1.02);
 }
 
@@ -379,7 +420,7 @@ body::-webkit-scrollbar {
 .contact-info {
   margin: 0 auto;
   margin-bottom: 4rem;
-  width: 50%;
+  width: 80%;
   text-align: left;
 }
 
@@ -408,12 +449,30 @@ body::-webkit-scrollbar {
   border: 1px solid #b69576;
 }
 
+.contact-number {
+  grid-column: 2/3;
+  grid-row: 1/2;
+}
+
+.contact-email {
+  grid-column: 1/3;
+}
+
+.contact-comments {
+  grid-column: 1/3;
+}
+
 .contact-form-submit {
   padding: 1rem 2.2rem;
   width: 50%;
   background-color: #b69576;
   color: #fff;
   border: none;
+}
+
+.contact-parallax-bg {
+  object-fit: cover;
+  max-width: 100%;
 }
 
 /* ADMIN PANEL */
@@ -466,6 +525,10 @@ body::-webkit-scrollbar {
   width: 100%;
   height: 50%;
   margin-bottom: 4rem;
+}
+
+.input-gallery-text::-webkit-scrollbar {
+  display: none;
 }
 
 .input-hero-pos {
@@ -540,6 +603,8 @@ body::-webkit-scrollbar {
 
 ion-icon {
   color: #b69576;
+  height: 2.4rem;
+  width: 2.4rem;
 }
 
 .copyright {

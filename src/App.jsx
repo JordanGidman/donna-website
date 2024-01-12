@@ -1,30 +1,37 @@
 import "./App.css";
 import "./queries.css";
-import Contact from "./pages/Contact";
-import Gallery from "./pages/Gallery";
+// import Contact from "./pages/Contact";
+// import Gallery from "./pages/Gallery";
 import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import Admin from "./pages/Admin";
+// import SignIn from "./pages/SignIn";
+// import SignUp from "./pages/SignUp";
+// import Admin from "./pages/Admin";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import { useContext } from "react";
+import { React, useContext, lazy, Suspense } from "react";
 import { AuthContext } from "./context/AuthContext";
-import _PRIVATE from "./firebase";
+// import _PRIVATE from "./firebase";
+
+// const Home = lazy(() => import("./pages/Home"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Contact = lazy(() => import("./pages/Contact"));
+const SignIn = lazy(() => import("./pages/SignIn"));
+const SignUp = lazy(() => import("./pages/SignUp"));
+const Admin = lazy(() => import("./pages/Admin"));
 
 //-features-
-//need to figure out a way to replace images
-//may need a way to choose the order the images are laid out in??
+//Loading component
+//FEATURE COMPLETE.
 
 //-optimization-
 //memoize necessary components
-//lazy load images
-//need to make it responsive
+//lighthouse optimizations
+//error handling
 
 function App() {
   const { currentUser } = useContext(AuthContext);
 
   const ProtectedRoute = ({ children }) => {
-    if (currentUser?.uid !== _PRIVATE) {
+    if (currentUser?.uid !== "Yen0CZbngxOD5V0zxIs4tqhrvsF2") {
       return <Navigate to="/signin" />;
     }
 
@@ -32,23 +39,25 @@ function App() {
   };
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/">
-          <Route index element={<Home />} />
-          <Route path="signin" element={<SignIn />} />
-          <Route path="signup" element={<SignUp />} />
-          <Route path="gallery" element={<Gallery />} />
-          <Route path="contact" element={<Contact />} />
-          <Route
-            path="admin"
-            element={
-              <ProtectedRoute>
-                <Admin />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-      </Routes>
+      <Suspense fallback={<p>Loading...</p>}>
+        <Routes>
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="signin" element={<SignIn />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="gallery" element={<Gallery />} />
+            <Route path="contact" element={<Contact />} />
+            <Route
+              path="admin"
+              element={
+                <ProtectedRoute>
+                  <Admin />
+                </ProtectedRoute>
+              }
+            />
+          </Route>
+        </Routes>
+      </Suspense>
     </BrowserRouter>
   );
 }

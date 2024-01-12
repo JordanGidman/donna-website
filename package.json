@@ -10,10 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "blurhash": "^2.0.5",
     "emailjs-com": "^3.2.0",
     "firebase": "^10.7.1",
     "react": "^18.2.0",
+    "react-blurhash": "^0.3.0",
     "react-dom": "^18.2.0",
+    "react-lazy-load-component": "^1.0.9",
+    "react-lazy-load-image-component": "^1.6.0",
     "react-parallax": "^3.5.1",
     "react-responsive-carousel": "^3.2.23",
     "react-router-dom": "^6.21.0",
