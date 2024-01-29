@@ -39,16 +39,18 @@ function Gallery() {
   return (
     <div>
       <Navbar />
-      <section className="gallery">
-        <h1 className="gallery-title">Gallery</h1>
-        <div className="gallery-images-container">
-          {isLoading && <p>Loading</p>}
-          {...imageUrls.sort((a, b) => {
-            return a.position > b.position ? 1 : -1;
-          })}
-        </div>
-      </section>
-      )
+      <div className="gallery-container">
+        <section className="gallery">
+          <h1 className="gallery-title">Gallery</h1>
+          <div className="gallery-images-container">
+            {isLoading && <p className="loading">Loading</p>}
+            {...imageUrls.sort((a, b) => {
+              return a.position > b.position ? 1 : -1;
+            })}
+          </div>
+        </section>
+      </div>
+
       <Footer />
     </div>
   );

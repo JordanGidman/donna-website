@@ -17,47 +17,72 @@ function Navbar() {
   return (
     <nav className={`navbar ${showMobileNav ? "fullscreen-nav" : ""}`}>
       <div className="nav-wrapper">
-        <div className="logo" onClick={() => navigate("/")}>
+        <div
+          className="logo"
+          onClick={() => {
+            navigate("/");
+            setShowMobileNav(false);
+          }}
+        >
           Logo
         </div>
         <ul className={`nav-list ${showMobileNav ? "show-mobile-nav" : ""}`}>
-          <li className="nav-link" onClick={() => navigate("/gallery")}>
+          <li
+            className="nav-link"
+            onClick={() => {
+              navigate("/gallery");
+              setShowMobileNav(false);
+            }}
+          >
             Gallery
           </li>
-          <li className="nav-link" onClick={() => navigate("/contact")}>
+          <li
+            className="nav-link"
+            onClick={() => {
+              navigate("/contact");
+              setShowMobileNav(false);
+            }}
+          >
             Contact Me
           </li>
           {currentUser?.uid === "Yen0CZbngxOD5V0zxIs4tqhrvsF2" && (
-            <li className="nav-link" onClick={() => navigate("/admin")}>
+            <li
+              className="nav-link"
+              onClick={() => {
+                navigate("/admin");
+                setShowMobileNav(false);
+              }}
+            >
               Admin
             </li>
           )}
         </ul>
       </div>
 
-      {currentUser ? (
-        <div
-          className={`user-wrapper ${showMobileNav ? "show-mobile-nav" : ""}`}
-        >
-          <span className="user-name">{currentUser.displayName}</span>
-          <button className="btn-signout" onClick={() => signOut(auth)}>
-            Sign out
-          </button>
-        </div>
-      ) : (
-        <div className="user-wrapper">
-          <button className="btn-signup" onClick={() => navigate("/signup")}>
-            Sign Up
-          </button>
-          <button className="btn-signup" onClick={() => navigate("/signin")}>
-            Sign In
-          </button>
-        </div>
-      )}
+      <div className={`user-wrapper ${showMobileNav ? "show-mobile-nav" : ""}`}>
+        {currentUser ? (
+          <>
+            <span className="user-name">{currentUser.displayName}</span>
+            <button className="btn-signout" onClick={() => signOut(auth)}>
+              Sign out
+            </button>
+          </>
+        ) : (
+          <>
+            <button className="btn-signup" onClick={() => navigate("/signup")}>
+              Sign Up
+            </button>
+            <button className="btn-signup" onClick={() => navigate("/signin")}>
+              Sign In
+            </button>
+          </>
+        )}
+      </div>
 
       <button
         className={`mobile-nav-btn ${showMobileNav ? "show-mobile-nav" : ""}`}
         onClick={toggleOpenNav}
+        aria-label="Menu"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

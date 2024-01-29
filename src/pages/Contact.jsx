@@ -8,7 +8,7 @@ import { useState } from "react";
 
 function Contact() {
   const [image, setImage] = useState("");
-  const imgRef = ref(storage, "donna-contact-image.jpg");
+  const imgRef = ref(storage, "donna-contact-image.webp");
   //get the url from the reference
   getDownloadURL(imgRef).then((url) => {
     setImage(url);
@@ -39,11 +39,12 @@ function Contact() {
     <div className="contact">
       <Navbar />
       <section className="contact-hero">
-        {!image && <p>Loading...</p>}
+        {!image && <p className="loading">Loading...</p>}
         {image && (
           <Parallax
             strength={400}
             bgImage={image}
+            bgImageAlt="Loading Image"
             className="contact-parallax"
             style={{
               height: "70vh",

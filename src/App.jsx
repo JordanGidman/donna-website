@@ -20,6 +20,7 @@ const Admin = lazy(() => import("./pages/Admin"));
 
 //-features-
 //Loading component
+//Ability to delete hero images
 //FEATURE COMPLETE.
 
 //-optimization-
