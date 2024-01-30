@@ -49,7 +49,9 @@ function SignIn() {
             <button className="signin-form-btn" disabled={isLoading}>
               Sign in
             </button>
-            {error && <span>Something went wrong..</span>}
+            {error && (
+              <span className="error-message">Something went wrong..</span>
+            )}
           </form>
           <p className="signin-footer">
             Don't have an account?{" "}

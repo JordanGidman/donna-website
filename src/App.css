@@ -645,3 +645,10 @@ ion-icon {
   color: #b69576;
   font-size: 1.4rem;
 }
+
+.error-message {
+  color: #fff;
+  font-size: 1.6rem;
+  text-align: center;
+  align-self: center;
+}
