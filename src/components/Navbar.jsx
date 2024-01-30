@@ -45,7 +45,7 @@ function Navbar() {
           >
             Contact Me
           </li>
-          {currentUser?.uid === "Yen0CZbngxOD5V0zxIs4tqhrvsF2" && (
+          {currentUser?.uid === "TPrNEyUfJsTLnxqVulhlAKrPfBF2" && (
             <li
               className="nav-link"
               onClick={() => {

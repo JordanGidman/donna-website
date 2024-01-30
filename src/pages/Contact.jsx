@@ -70,7 +70,12 @@ function Contact() {
         <div className="contact-info">
           <div className="contact-parallax-info">
             <h2 className="contact-heading">GET IN TOUCH</h2>
-            <form className="contact-form" onSubmit={sendEmail}>
+            <form
+              className="contact-form"
+              onSubmit={console.log(
+                "This feature is disabled by admin as this is a test version you can check the code to see that it would work but the service this feature uses is limited or paid only so to avoid issues or charges it has been disabled"
+              )}
+            >
               <input
                 type="text"
                 placeholder="Name"

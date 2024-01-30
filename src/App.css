@@ -301,12 +301,14 @@ body::-webkit-scrollbar {
 .parallax {
   height: 100vh;
   width: 100vw;
+  /* filter: brightness(80%); */
 }
 
 .parallax-content {
   height: 100vh;
   width: 100%;
   text-align: center;
+  filter: brightness(100%);
 }
 
 .parallax-text-content {
@@ -324,7 +326,7 @@ body::-webkit-scrollbar {
   object-fit: cover;
   height: 100%;
   width: 100vw;
-  filter: brightness(80%);
+  filter: brightness(80%) !important;
 }
 
 .parallax-title {
@@ -651,4 +653,8 @@ ion-icon {
   font-size: 1.6rem;
   text-align: center;
   align-self: center;
+}
+
+img {
+  filter: brightness(90%);
 }

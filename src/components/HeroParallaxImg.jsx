@@ -9,15 +9,15 @@ function HeroParallaxImg({ url, contentHead, text, lazy }) {
         strength={400}
         bgImage={url}
         bgImageAlt={"Not Found"}
-        bgClassName="parallax-img"
         className="parallax"
         bgImageStyle={{
-          filter: "brightness(80%)",
+          filter: "brightness(70%)",
           height: "100vh",
           width: "100vw",
           objectFit: "cover",
         }}
         lazy={lazy}
+        bgClassName="parallax-img"
       >
         <div className="parallax-content">
           <div className="parallax-text-content">

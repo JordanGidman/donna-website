@@ -29,8 +29,6 @@ function Admin() {
     const galleryFile = e.target[5].files[0];
     const galleryPos = e.target[6].value;
 
-    console.log(galleryName);
-
     try {
       //upload images to cloud storage if all the data needed is given
 
@@ -120,12 +118,9 @@ function Admin() {
 
                 let isRoom = true;
                 querySnapshot.forEach((document) => {
-                  console.log(document.data().position);
                   if (document.data().position === Number(galleryPos))
                     isRoom = false;
                 });
-
-                console.log(isRoom);
 
                 //update all other image positions
                 !isRoom &&

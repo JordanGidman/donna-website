@@ -69,7 +69,7 @@ function GalleryImage({ source, path, setImageUrls }) {
         effect="blur"
       />
 
-      {currentUser?.uid === "Yen0CZbngxOD5V0zxIs4tqhrvsF2" && (
+      {currentUser?.uid === "TPrNEyUfJsTLnxqVulhlAKrPfBF2" && (
         <button className="gallery-delete-btn" onClick={deleteImage}>
           Delete
         </button>

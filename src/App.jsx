@@ -32,7 +32,7 @@ function App() {
   const { currentUser } = useContext(AuthContext);
 
   const ProtectedRoute = ({ children }) => {
-    if (currentUser?.uid !== "Yen0CZbngxOD5V0zxIs4tqhrvsF2") {
+    if (currentUser?.uid !== "TPrNEyUfJsTLnxqVulhlAKrPfBF2") {
       return <Navigate to="/signin" />;
     }
 
