@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 
 function SignIn() {
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function SignIn() {
       navigate("/");
       setIsLoading(false);
     } catch (err) {
-      setError(true);
+      setError(err.message);
       console.log(err);
     }
   }
@@ -50,7 +50,9 @@ function SignIn() {
               Sign in
             </button>
             {error && (
-              <span className="error-message">Something went wrong..</span>
+              <span className="error-message">
+                Something went wrong... {error.message}
+              </span>
             )}
           </form>
           <p className="signin-footer">

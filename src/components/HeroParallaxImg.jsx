@@ -1,8 +1,14 @@
 import { Parallax } from "react-parallax";
 import ButtonCta from "./ButtonCta";
 import LazyLoad from "react-lazy-load";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
-function HeroParallaxImg({ url, contentHead, text, lazy }) {
+function HeroParallaxImg({ url, contentHead, text, lazy, path, deleteImage }) {
+  const { currentUser } = useContext(AuthContext);
+
+  console.log(path);
+
   return (
     <LazyLoad offset={200}>
       <Parallax
@@ -23,7 +29,17 @@ function HeroParallaxImg({ url, contentHead, text, lazy }) {
           <div className="parallax-text-content">
             <h2 className="parallax-title">{contentHead}</h2>
             <p className="parallax-text">{text}</p>
-            <ButtonCta />
+            <div className="hero-img-btns">
+              <ButtonCta />
+              {currentUser.uid === "TPrNEyUfJsTLnxqVulhlAKrPfBF2" && (
+                <button
+                  className="parallax-cta-btn"
+                  onClick={() => deleteImage(path)}
+                >
+                  DELETE
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </Parallax>

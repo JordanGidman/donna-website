@@ -90,6 +90,7 @@ function Admin() {
                   imageText: heroText,
                   photoURL: downloadURL,
                   position: Number(heroPos),
+                  path: uploadTask.snapshot.metadata.fullPath,
                 });
               }
             );
